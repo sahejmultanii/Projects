@@ -1,0 +1,81 @@
+const statusDisplay = document.querySelector('.game--status');
+
+let gameOn = true;
+let playerTurn = "X";
+let gameState = ["","","","","","","","",""];
+
+const winnerAlert = () => "Player ${playerTurn} is the winner!";
+const tieGame = () => "Tie Game!";
+const nextTurn = () => "${playerTurn}'s Turn";
+
+statusDisplay.innerHTML = nextTurn();
+
+ const winConditions = [ //setting the possiblities in which one could win
+     [0,1,2],
+     [3,4,5],
+     [6,7,8],
+     [0,3,6],
+     [1,4,7],
+     [2,5,8],
+     [0,4,8],
+     [2,4,6]
+ ];
+
+ function cellPlayed (clickedCell, clickedCellIndex){
+     gameState[clickedCellIndex] = playerTurn;
+     clickedCell.innerHTML = playerTurn;
+ }
+
+ function playerChange(){
+     playerTurn = playerTurn === "X" ? "O" : "X";
+     statusDisplay.innerHTML = playerTurn;
+ }
+
+ function resultValidation(){
+     let roundWon = false;
+     for (let i = 0;i<winConditions.length;i++){
+         const winningCondition  = winConditions[i];
+         let a = gameState[winningCondition[0]];
+         let b = gameState[winningCondition[1]];
+         let c = gameState[winningCondition[2]];
+
+         if (a== '' || b== '' || c== ''){
+             continue;
+         }
+         if (a== b && b== c){
+             roundWon = true;
+             break;
+         }
+     }
+    
+     if(roundWon){
+         statusDisplay.innerHTML = winnerAlert;
+         gameOn = false;
+         return;
+     }
+
+     playerChange();
+ }
+
+ function cellClick(clickedCellEvent){
+     const clickedCell = clickedCellEvent.target;
+     const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+
+     if (gameState[clickedCellIndex] != "" || !gameOn){
+         return;
+     }
+    cellPlayed(clickedCell,clickedCellIndex);
+    resultValidation();
+    
+ }
+
+ function restartGame() {
+    gameOn = true;
+    playerTurn = "X";
+    gameState = ["", "", "", "", "", "", "", "", ""];
+    statusDisplay.innerHTML = nextTurn();
+    document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = "");
+}
+
+document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', cellClick));
+document.querySelector('.game--restart').addEventListener('click', restartGame); 
