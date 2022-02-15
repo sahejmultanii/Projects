@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="850.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.smultan7_assignment1.HydraGameController">
+   <children>
+      <Button layoutX="74.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#resetButtonClicked" prefHeight="26.0" prefWidth="104.0" text="RESET" />
+      <Button fx:id="playButton" layoutX="620.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#playButtonClicked" prefHeight="26.0" prefWidth="93.0" text="PLAY" />
+      <Slider fx:id="slideSize" layoutX="308.0" layoutY="52.0" majorTickUnit="1.0" max="6.0" min="2.0" minorTickCount="0" prefHeight="16.0" prefWidth="199.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="4.0" />
+      <Label layoutX="376.0" layoutY="23.0" text="HEAD SIZE" />
+      <AnchorPane fx:id="hydraGrid" layoutX="4.0" layoutY="88.0" prefHeight="760.0" prefWidth="790.0" />
+   </children>
+</AnchorPane>
